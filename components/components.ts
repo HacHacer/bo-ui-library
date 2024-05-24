@@ -1,7 +1,6 @@
 import type { App, Plugin } from 'vue';
 // import your Component
 
-
 const components: Record<string, Plugin> = {
   // Add your Component
 };

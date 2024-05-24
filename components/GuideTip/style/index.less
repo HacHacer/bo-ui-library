@@ -1,0 +1,33 @@
+.guide-tip-target{
+  position: fixed;
+  display: inline-block;
+  pointer-events: none;
+}
+.arco-btn-secondary:not(.arco-btn-disabled) {
+  background-color: var(--color-secondary);
+  color: var(--color-text-2);
+  border: 1px solid transparent;
+}
+.guide-tip {
+  max-width: unset;
+  min-width: 200px;
+  .arco-popover-popup-content,.arco-popover-popup-arrow {
+    background: rgb(var(--primary-6));
+  }
+  .arco-popover-title,.arco-popover-content{
+      color: var(--color-white);
+  }
+  .guide-tip-footer{
+    text-align: right;
+    margin-top: 18px;
+  }
+}
+.guide-wrapper{
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  background-color: #00000080;
+}

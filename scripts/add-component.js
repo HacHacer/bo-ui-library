@@ -4,7 +4,10 @@ const fg = require('fast-glob');
 
 const componentName = process.argv[2];
 const templatePath = path.resolve(__dirname, 'template');
-const targetComponentPath = path.resolve(__dirname, `../components/${componentName}`);
+const targetComponentPath = path.resolve(
+  __dirname,
+  `../components/${componentName}`
+);
 const targetStoryPath = path.resolve(__dirname, `../stories`);
 
 if (!componentName) {
@@ -33,25 +36,33 @@ const replaceContent = async (pattern, searchValue, replaceValue) => {
 // 拷贝、替换组件模板内容
 const copyComponentSrc = async () => {
   fs.copySync(`${templatePath}/component`, targetComponentPath);
-  await replaceContent(`${targetComponentPath}/**/*`, '@CONST_COMPONENT_NAME@', componentName);
+  await replaceContent(
+    [`**/components/${componentName}/**/*`],
+    '@CONST_COMPONENT_NAME@',
+    componentName
+  );
 };
 
 // 拷贝替换组件 Story
 const copyComponentStory = async () => {
   const targetStoryFilePath = `${targetStoryPath}/${componentName}.stories.ts`;
   fs.copySync(`${templatePath}/story.ts`, targetStoryFilePath);
-  await replaceContent(targetStoryFilePath, '@CONST_COMPONENT_NAME@', componentName);
+  await replaceContent(
+    [`**/${componentName}.stories.ts`],
+    '@CONST_COMPONENT_NAME@',
+    componentName
+  );
 };
 
 // 在组件库入口中对外暴露此组件
 function registerComponent() {
   fs.appendFileSync(
     path.resolve(__dirname, '../components/index.ts'),
-    `export { default as ${componentName} } from \'./${componentName}\';\n`,
+    `export { default as ${componentName} } from \'./${componentName}\';\n`
   );
   fs.appendFileSync(
     path.resolve(__dirname, '../components/index.less'),
-    `@import \'./${componentName}/style/index.less\';\n`,
+    `@import \'./${componentName}/style/index.less\';\n`
   );
 }
 
